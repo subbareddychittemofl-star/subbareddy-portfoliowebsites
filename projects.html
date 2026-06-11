@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Projects - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="profile">
+            <h1>My Projects</h1>
+            <p>Project Details and Code Examples</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <!-- Project 1 -->
+    <section id="project1">
+        <h2>Project 1: Automated Supermarket Billing System with WhatsApp Integration</h2>
+        <p><strong>Description:</strong> Developed an Automated Billing and WhatsApp Notification System using Python
+            that streamlines bill generation, calculation, and real-time communication. The project integrates billing
+            logic, data validation, file handling, and automated WhatsApp messaging to reduce manual effort and improve
+            accuracy. Implemented structured system architecture, error handling, and modular programming for reliable
+            execution, along with testing and performance optimization. Designed with scalability in mind, the solution
+            can be extended into a web or mobile application with cloud integration, secure authentication, and enhanced
+            analytics for real-world deployment.</p>
+
+        <h3>Technologies Used:</h3>
+        <p>Python, WhatsApp API, File Handling, Data Validation</p>
+
+        <h3>Key Features:</h3>
+        <p>✓ Automated bill generation and calculation<br>✓ Real-time WhatsApp notifications<br>✓ Data validation and
+            error handling<br>✓ Modular programming architecture<br>✓ Scalable design for web/mobile integration</p>
+
+        <h3>Code Example:</h3>
+        <pre><code>
+import pywhatkit
+from datetime import datetime
+
+# FUNCTION: Generate Bill Text
+def generate_bill(items):
+    bill = ""
+    bill += "********* SUPERMARKET BILL *********\n"
+    bill += f"DATE: {datetime.now().strftime('%d-%m-%Y %H:%M')}\n"
+    bill += "-------------------------------------\n"
+    total = 0
+
+    for item in items:
+        name = item["name"]
+        qty = item["qty"]
+        price = item["price"]
+        category = item["category"]
+
+        amount = qty * price
+        total += amount
+
+        bill += f"{name} ({category})\n"
+        bill += f"  Qty: {qty} × ₹{price} = ₹{amount}\n"
+
+    gst = total * 0.05    # 5% GST
+    grand_total = total + gst
+
+    bill += "-------------------------------------\n"
+    bill += f"SUB TOTAL     : ₹{total}\n"
+    bill += f"GST (5%)      : ₹{gst:.2f}\n"
+    bill += f"TOTAL AMOUNT  : ₹{grand_total:.2f}\n"
+    bill += "*************************************\n"
+
+    return bill
+
+
+# FUNCTION: Send Bill on WhatsApp Automatically
+def send_bill_whatsapp_auto(bill_text, phone_number):
+    pywhatkit.sendwhatmsg_instantly(
+        phone_no=phone_number,
+        message=bill_text,
+        wait_time=20
+    )
+    print("\nBill Sent Successfully via WhatsApp!")
+
+
+# MAIN PROGRAM
+items = []
+n = int(input("Enter number of items: "))
+
+for i in range(n):
+    print(f"\nItem {i + 1}:")
+    name = input("Enter item name: ")
+    category = input("Enter item type/category: ")
+    qty = float(input("Enter quantity: "))
+    price = float(input("Enter price per item: "))
+
+    items.append({"name": name, "category": category, "qty": qty, "price": price})
+
+# Step 1: Generate text bill
+bill_text = generate_bill(items)
+
+print("\nGenerated Bill:\n")
+print(bill_text)
+
+# Step 2: Send automatically on WhatsApp
+phone = input("Enter WhatsApp number with country code: ")
+send_bill_whatsapp_auto(bill_text, phone)
+        </code></pre>
+    </section>
+
+    <!-- Project 2 -->
+    <section id="project2">
+        <h2>Project 2: Python Script</h2>
+        <p><strong>Description:</strong> A Python script for data analysis and manipulation.</p>
+
+        <h3>Technologies Used:</h3>
+        <p>Python, SQL</p>
+
+        <h3>Code Example:</h3>
+        <pre><code>
+# Python data processing script
+import sqlite3
+
+def create_database():
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS users
+                    (id INTEGER PRIMARY KEY, name TEXT, email TEXT)''')
+    conn.commit()
+    conn.close()
+
+create_database()
+print("Database created successfully!")
+        </code></pre>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
